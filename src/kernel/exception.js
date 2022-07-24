@@ -1,3 +1,3 @@
 export function DINotFoundException(message) {
-   return new ErrorEvent(message)
+   return new Error(message)
 }
