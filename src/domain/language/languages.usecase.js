@@ -1,23 +1,11 @@
-import {
-    repositoryAddLanguage,
-    repositoryEditLanguage,
-    repositoryGetLanguage,
-    repositoryListLanguages,
-    repositoryRemoveLanguage
-} from './language.repository'
+import LanguagesRepository from "./language.repository";
 
-export default function LanguagesUsecase(languagesRepository) {
-    const listLanguages = repositoryListLanguages({languagesRepository})
-    const getLanguage = repositoryGetLanguage({languagesRepository})
-    const addLanguage = repositoryAddLanguage({languagesRepository})
-    const editLanguage = repositoryEditLanguage({languagesRepository})
-    const removeLanguage = repositoryRemoveLanguage({languagesRepository})
-
+export default function LanguagesUsecase(languagesService) {
     return Object.freeze({
-        listLanguages,
-        getLanguage,
-        addLanguage,
-        editLanguage,
-        removeLanguage,
+        listLanguages: LanguagesRepository({languagesService}).list,
+        getLanguage: LanguagesRepository({languagesService}).get,
+        addLanguage: LanguagesRepository({languagesService}).add,
+        editLanguage: LanguagesRepository({languagesService}).update,
+        removeLanguage: LanguagesRepository({languagesService}).remove,
     })
 }
