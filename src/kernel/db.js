@@ -1,7 +1,7 @@
 import mysql from "promise-mysql";
 import config from "./config";
 
-export async function makeDb () {
+export default async function getEntityManager() {
     return mysql.createConnection({
         host: config.host,
         database: config.database,
