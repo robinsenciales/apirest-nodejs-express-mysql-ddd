@@ -1,5 +1,5 @@
 import httpStatus from 'http-status';
-import DI from "../app.container";
+import DI from "../dependency.injection";
 
 export default function LanguagesController() {
     return Object.freeze({
