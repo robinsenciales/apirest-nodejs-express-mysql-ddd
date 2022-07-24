@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import DI from "../dependency.injection";
 
-export default function LanguagesController() {
+export default function LanguageController() {
     return Object.freeze({
         getLanguages: async (httpRequest) => {
             const headers = {

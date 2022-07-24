@@ -1,13 +1,13 @@
 import {Router} from 'express';
-import LanguagesController from '../controllers/languages.controller'
+import LanguageController from '../controllers/language.controller'
 import makeCallback from '../express-callback'
 
 const router = Router();
 
-router.get('/', makeCallback(LanguagesController().getLanguages))
-router.get('/:id', makeCallback(LanguagesController().getLanguage))
-router.post('/', makeCallback(LanguagesController().addLanguage))
-router.put('/:id', makeCallback(LanguagesController().updateLanguage))
-router.delete('/:id', makeCallback(LanguagesController().deleteLanguage))
+router.get('/', makeCallback(LanguageController().getLanguages))
+router.get('/:id', makeCallback(LanguageController().getLanguage))
+router.post('/', makeCallback(LanguageController().addLanguage))
+router.put('/:id', makeCallback(LanguageController().updateLanguage))
+router.delete('/:id', makeCallback(LanguageController().deleteLanguage))
 
 export default router;
