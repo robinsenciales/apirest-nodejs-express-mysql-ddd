@@ -1,4 +1,4 @@
-import LanguagesUsecase from "../domain/language/languages.usecases";
+import LanguagesUsecase from "../domain/language/languages.usecase";
 import LanguagesService from "../infraestructure/languages/languages.service";
 import {DINotFoundException} from "../kernel/exception";
 
