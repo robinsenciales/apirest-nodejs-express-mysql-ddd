@@ -32,7 +32,7 @@ export default function makeLanguagesDb({makeDb}) {
             .query('INSERT INTO language SET ?', languageInfo);
         console.log(result);
         const {...insertedInfo} = languageInfo
-        return {id: result['insertId'], ...insertedInfo}
+        return {id: result.insertId, ...insertedInfo}
     }
 
     async function update({id, ...languageInfo}) {
@@ -40,7 +40,7 @@ export default function makeLanguagesDb({makeDb}) {
         const result = await db
             .query('UPDATE language SET ? WHERE id = ?', [languageInfo, id])
         console.log(result);
-        return result['affectedRows'] > 0 ? {id, ...languageInfo} : null
+        return result.affectedRows > 0 ? {id, ...languageInfo} : null
     }
 
     async function remove({id}) {
