@@ -1,9 +1,9 @@
 import LanguageFactory from "./language.factory";
 
-export default function LanguagesRepository({languagesService}) {
+export default function LanguageService(languageRepository) {
     return Object.freeze({
         list: async ({} = {}) => {
-            const languages = await languagesService.findAll({})
+            const languages = await languageRepository.findAll({})
             return languages;
         },
         get: async ({id} = {}) => {
@@ -11,7 +11,7 @@ export default function LanguagesRepository({languagesService}) {
                 throw new Error('You must supply an id.')
             }
 
-            const language = await languagesService.findById({id})
+            const language = await languageRepository.findById({id})
             if (!language) {
                 throw new RangeError('Language not found.')
             }
@@ -20,12 +20,12 @@ export default function LanguagesRepository({languagesService}) {
         },
         add: async (languageInfo) => {
             const language = LanguageFactory().createFrom(languageInfo)
-            const exists = await languagesService.findByName({name: language.getName()})
+            const exists = await languageRepository.findByName({name: language.getName()})
             if (exists) {
                 return exists
             }
 
-            return languagesService.insert({
+            return languageRepository.insert({
                 name: language.getName(),
                 programmers: language.getProgrammers(),
             })
@@ -37,7 +37,7 @@ export default function LanguagesRepository({languagesService}) {
             if (!changes.name) {
                 throw new Error('You must supply name.')
             }
-            const existing = await languagesService.findById({id})
+            const existing = await languageRepository.findById({id})
 
             if (!existing) {
                 throw new RangeError('Language not found.')
@@ -46,7 +46,7 @@ export default function LanguagesRepository({languagesService}) {
             if (language.getName() === existing.name && language.getProgrammers() === existing.programmers) {
                 return existing
             }
-            const updated = await languagesService.update({
+            const updated = await languageRepository.update({
                 id,
                 name: language.getName(),
                 programmers: language.getProgrammers(),
@@ -58,7 +58,7 @@ export default function LanguagesRepository({languagesService}) {
                 throw new Error('You must supply a language id.')
             }
 
-            const languageToDelete = await languagesService.findById({id})
+            const languageToDelete = await languageRepository.findById({id})
 
             if (!languageToDelete) {
                 return deleteNothing()
@@ -77,7 +77,7 @@ export default function LanguagesRepository({languagesService}) {
     }
 
     async function hardDelete(language) {
-        await languagesService.remove(language)
+        await languageRepository.remove(language)
         return {
             deletedCount: 1,
             softDelete: false,

@@ -1,6 +1,6 @@
 import getEntityManager from '../../kernel/db'
 
-export default function LanguagesService() {
+export default function LanguageRepository() {
     return Object.freeze({
         findAll: async ({} = {}) => {
             const em = await getEntityManager();

@@ -1,10 +1,10 @@
-import LanguagesUsecase from "../domain/language/languages.usecase";
-import LanguagesService from "../infraestructure/languages/languages.service";
+import LanguageService from "../domain/language/language.service";
+import LanguageRepository from "../infraestructure/languages/language.repository";
 import {DINotFoundException} from "../kernel/exception";
 
 export default function DI() {
     const dependencies = {
-        'languages.use-case': LanguagesUsecase(LanguagesService()),
+        'languages.service': LanguageService(LanguageRepository()),
     };
     return Object.freeze({
         get: (name) => {

@@ -8,7 +8,7 @@ export default function LanguagesController() {
                 'Content-Type': 'application/json'
             }
             try {
-                const languages = await DI().get('languages.use-case').listLanguages({})
+                const languages = await DI().get('languages.service').list({})
                 return {
                     headers,
                     statusCode: httpStatus.OK,
@@ -32,7 +32,7 @@ export default function LanguagesController() {
             }
             try {
                 const {id} = httpRequest.params;
-                const language = await DI().get('languages.use-case').getLanguage({id})
+                const language = await DI().get('languages.service').get({id})
                 return {
                     headers,
                     statusCode: httpStatus.OK,
@@ -64,7 +64,7 @@ export default function LanguagesController() {
         addLanguage: async (httpRequest) => {
             try {
                 const {...languageInfo} = httpRequest.body
-                const created = await DI().get('languages.use-case').addLanguage({
+                const created = await DI().get('languages.service').add({
                     ...languageInfo,
                 })
                 return {
@@ -96,7 +96,7 @@ export default function LanguagesController() {
                     ...languageInfo,
                     id: httpRequest.params.id
                 }
-                const edited = await DI().get('languages.use-case').editLanguage(toEdit)
+                const edited = await DI().get('languages.service').update(toEdit)
                 return {
                     headers: {
                         'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ export default function LanguagesController() {
                 'Content-Type': 'application/json'
             }
             try {
-                const deleted = await DI().get('languages.use-case').removeLanguage({id: httpRequest.params.id})
+                const deleted = await DI().get('languages.service').remove({id: httpRequest.params.id})
                 return {
                     headers,
                     statusCode: deleted.deletedCount === 0 ? httpStatus.NOT_FOUND : httpStatus.OK,
