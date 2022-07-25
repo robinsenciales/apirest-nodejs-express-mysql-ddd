@@ -19,15 +19,15 @@ export default function LanguageService(languageRepository) {
             return language;
         },
         add: async (languageInfo) => {
-            const language = LanguageFactory().createFrom(languageInfo)
-            const exists = await languageRepository.findByName({name: language.getName()})
+            const languageForm = LanguageFactory().createFrom(languageInfo)
+            const exists = await languageRepository.findByName({name: languageForm.getName()})
             if (exists) {
                 return exists
             }
 
             return languageRepository.insert({
-                name: language.getName(),
-                programmers: language.getProgrammers(),
+                name: languageForm.getName(),
+                programmers: languageForm.getProgrammers(),
             })
         },
         update: async ({id, ...changes} = {}) => {
@@ -42,14 +42,14 @@ export default function LanguageService(languageRepository) {
             if (!existing) {
                 throw new RangeError('Language not found.')
             }
-            const language = LanguageFactory().createFrom({...existing, ...changes})
-            if (language.getName() === existing.name && language.getProgrammers() === existing.programmers) {
+            const languageForm = LanguageFactory().createFrom({...existing, ...changes})
+            if (languageForm.getName() === existing.name && languageForm.getProgrammers() === existing.programmers) {
                 return existing
             }
             const updated = await languageRepository.update({
                 id,
-                name: language.getName(),
-                programmers: language.getProgrammers(),
+                name: languageForm.getName(),
+                programmers: languageForm.getProgrammers(),
             })
             return {...existing, ...updated}
         },

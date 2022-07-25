@@ -46,8 +46,8 @@ export default function LanguageRepository() {
             if (result.length === 0) {
                 return null
             }
-            const {id, ...insertedInfo} = result[0]
-            return {id, ...insertedInfo}
+            const {id, ...languageInfo} = result[0]
+            return {id, ...languageInfo}
         },
     })
 }
