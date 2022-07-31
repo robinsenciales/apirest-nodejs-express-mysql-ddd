@@ -3,9 +3,9 @@ import DI from "../dependency.injection";
 
 export default function AuthController() {
     return Object.freeze({
-        login: async (httpRequest) => {
+        login: async (req) => {
             try {
-                const {email, password} = httpRequest.body
+                const {email, password} = req.body
                 const login = await DI().get('auth.service').login({
                     email,
                     password
@@ -32,9 +32,9 @@ export default function AuthController() {
                 }
             }
         },
-        register: async (httpRequest) => {
+        register: async (req) => {
             try {
-                const {...userInfo} = httpRequest.body
+                const {...userInfo} = req.body
                 const register = await DI().get('auth.service').register({
                     ...userInfo,
                 })

@@ -3,7 +3,7 @@ import DI from "../dependency.injection";
 
 export default function LanguageController() {
     return Object.freeze({
-        getLanguages: async (httpRequest) => {
+        getLanguages: async (req) => {
             const headers = {
                 'Content-Type': 'application/json'
             }
@@ -26,12 +26,12 @@ export default function LanguageController() {
                 }
             }
         },
-        getLanguage: async (httpRequest) => {
+        getLanguage: async (req) => {
             const headers = {
                 'Content-Type': 'application/json'
             }
             try {
-                const {id} = httpRequest.params;
+                const {id} = req.params;
                 const language = await DI().get('languages.service').get({id})
                 return {
                     headers,
@@ -61,9 +61,9 @@ export default function LanguageController() {
                 }
             }
         },
-        addLanguage: async (httpRequest) => {
+        addLanguage: async (req) => {
             try {
-                const {...languageInfo} = httpRequest.body
+                const {...languageInfo} = req.body
                 const created = await DI().get('languages.service').add({
                     ...languageInfo,
                 })
@@ -89,12 +89,12 @@ export default function LanguageController() {
                 }
             }
         },
-        updateLanguage: async (httpRequest) => {
+        updateLanguage: async (req) => {
             try {
-                const {...languageInfo} = httpRequest.body
+                const {...languageInfo} = req.body
                 const toEdit = {
                     ...languageInfo,
-                    id: httpRequest.params.id
+                    id: req.params.id
                 }
                 const edited = await DI().get('languages.service').update(toEdit)
                 return {
@@ -129,12 +129,12 @@ export default function LanguageController() {
                 }
             }
         },
-        deleteLanguage: async (httpRequest) => {
+        deleteLanguage: async (req) => {
             const headers = {
                 'Content-Type': 'application/json'
             }
             try {
-                const deleted = await DI().get('languages.service').remove({id: httpRequest.params.id})
+                const deleted = await DI().get('languages.service').remove({id: req.params.id})
                 return {
                     headers,
                     statusCode: deleted.deletedCount === 0 ? httpStatus.NOT_FOUND : httpStatus.OK,
